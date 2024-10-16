@@ -39,6 +39,9 @@ class playList{
             cancion.mostrarInformacion();
         });
     }
+    obtenerCanciones(){
+        return this.#canciones;
+    }
 }
 
 /*//Quemar datos
@@ -77,11 +80,12 @@ document.querySelector("#ok").addEventListener("click", function (){
 });
 document.querySelector("#mostrar").addEventListener("click", function (){
     alert("Estas en el boton mostrar");
-    let salsa = salsaPlayList.listarCanciones();
-    for (let i = 0; i < cancionesSalsa.length; i++){
+    let listaC = document.querySelector("#lista-canciones");  //Se captura el elemento
+    let salsa = salsaPlayList.obtenerCanciones();
+    console.log(salsa);
+    for (let i = 0; i < salsa.length; i++){
         let lista = document.createElement("li"); //Crear elementos HTML <li>
-        lista.textContent = `${salsa.titulo}- ${salsa.artista}- ${salsa.duracion}`;
-        let listaC = document.querySelector("#lista-canciones");  //Se captura el elemento
+        lista.textContent = `${salsa[i].titulo}- ${salsa[i].artista}- ${salsa[i].duracion}`;
         listaC.appendChild(lista);
     }
 });
