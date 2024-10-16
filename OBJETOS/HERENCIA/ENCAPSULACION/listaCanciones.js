@@ -41,7 +41,7 @@ class playList{
     }
 }
 
-//Quemar datos
+/*//Quemar datos
 let cancion1 = new Cancion("Bohemia Rhapsody", "Queen", 254);
 let cancion2 = new Cancion("Amarte mas no pude", "Diomedez Diaz", 520);
 let cancion3 = new Cancion("Hotel California", "Eagles", 391);
@@ -54,4 +54,34 @@ playListVariado.agregarCanciones(cancion3);
 playListVariado.agregarCanciones(cancion4);
 playListVariado.agregarCanciones(cancion5);
 playListVariado.listarCanciones();
-console.log(playListVariado.buscarCanciones("Bohemia Rhapsody"));
+/console.log(playListVariado.buscarCanciones("Bohemia Rhapsody"));*/
+let salsaPlayList = new playList("Salsa", "Salsa pesada");
+document.querySelector("#playlistnombre").textContent = salsaPlayList.nombre;
+document.querySelector("#playlistgenero").textContent = salsaPlayList.genero;
+document.querySelector("#ok").addEventListener("click", function (){
+    //alert("Estoy en la acción del boton");
+    let tituloInput= document.querySelector("#titulo");
+    let artistaInput= document.querySelector("#artista");
+    let duracionInput= document.querySelector("#duracion");
+    let titulovalue = tituloInput.value;
+    let artistavalue = artistaInput.value;
+    let duracionvalue = duracionInput.value;
+    /*alert(titulovalue);
+    alert(artistavalue);
+    alert(duracionvalue);*/
+    let cancioncita = new Cancion(titulovalue, artistavalue, duracionvalue);
+    salsaPlayList.agregarCanciones(cancioncita);
+    tituloInput.value = "";
+    artistaInput.value = "";
+    duracionInput.value = "";
+});
+document.querySelector("#mostrar").addEventListener("click", function (){
+    alert("Estas en el boton mostrar");
+    let salsa = salsaPlayList.listarCanciones();
+    for (let i = 0; i < cancionesSalsa.length; i++){
+        let lista = document.createElement("li"); //Crear elementos HTML <li>
+        lista.textContent = `${salsa.titulo}- ${salsa.artista}- ${salsa.duracion}`;
+        let listaC = document.querySelector("#lista-canciones");  //Se captura el elemento
+        listaC.appendChild(lista);
+    }
+});

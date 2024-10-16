@@ -8,22 +8,23 @@
 <body>
     <h1>PLAYLIST CANCIONES</h1>
     <div>
-        <label for="titulo"></label>
+        <label for="titulo">Titulo:</label>
         <input id="titulo" type="text" required>
         <br>
-        <label for="artista"></label>
+        <label for="artista">Artista:</label>
         <input id="artista" type="text" required>
         <br>
-        <label for="duracion"></label>
+        <label for="duracion">Duracion:</label>
         <input id="duracion" type="text" required>
         <br>
         <button id="ok">Agragar Cancion</button>
     </div>
     <div>
         <h2>LISTADO DE PLAYLIST</h2>
-        <p>Nombre: <span id="playlist nombre"></span></p>
-        <p>Genero: <span id="playlist genero"></span></p>
+        <p>Nombre: <span id="playlistnombre"></span></p>
+        <p>Genero: <span id="playlistgenero"></span></p>
         <ul id="lista-canciones"></ul>
+        <button id="mostrar">Mostrar</button>
     </div>
     <script src="listaCanciones.js"></script>
 </body>
