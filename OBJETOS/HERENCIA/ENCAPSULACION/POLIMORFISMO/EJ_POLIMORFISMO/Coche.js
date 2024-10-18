@@ -2,7 +2,7 @@ import Vehiculo from"./Vehiculo.js"
 
 class Coche extends Vehiculo{
     mover(distancia, velocidad){
-        console.log(`${distancia} ${velocidad}`)
+        console.log(`Coche: ${distancia} ${velocidad}`)
     }
 }
 

@@ -1,4 +1,4 @@
-import Figura from ".Figura.js"; //Se importa la clase padre
+import Figura from "./Figura.js"; //Se importa la clase padre
 
 class Circulo extends Figura{
     constructor(radio){
