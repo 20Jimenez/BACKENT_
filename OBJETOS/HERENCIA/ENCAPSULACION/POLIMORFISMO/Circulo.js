@@ -1,3 +1,5 @@
+import Figura from ".Figura.js"; //Se importa la clase padre
+
 class Circulo extends Figura{
     constructor(radio){
         super();
@@ -11,4 +13,4 @@ class Circulo extends Figura{
     }
 }
 
-export default Circulo;
+export default Circulo;  //Para luego exportarla

@@ -1,3 +1,5 @@
+import Figura from ".Figura.js"; //Se importa la clase padre
+
 class Rectangulo extends Figura{
     constructor(base, altura){
         super();
