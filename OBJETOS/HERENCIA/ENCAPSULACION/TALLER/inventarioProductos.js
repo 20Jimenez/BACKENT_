@@ -15,7 +15,7 @@ class Electrodomestico extends Producto{
 let laptop = new Electrodomestico("Laptop", 300, 2, "HP");
 let lavadora = new Electrodomestico("Lavadora", 500, 1, "SAMSUNG");
 let microondas = new Electrodomestico("Microondas", 800, 5, "IG");
-let productos = [laptop, lavadora, microondas];  // Es un arreglo de electrodomesticos llamado producto
+let productos = [laptop, lavadora, microondas];  // Es un arreglo de electrodomesticos llamado productos
 
 let listar = (productos) => {
     let resultado = productos.filter(producto => producto.cantidadEnStock < 10);
