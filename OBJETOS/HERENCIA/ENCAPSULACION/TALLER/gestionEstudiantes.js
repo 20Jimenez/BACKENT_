@@ -19,7 +19,7 @@ class Persona{
     }
 
     saludar(){
-        return `Hola, persona: ${this.nombre}, tu edad es: ${this.edad}`
+        return `Hola, persona: ${this.nombre}, tu edad es: ${this.edad}`;
     }
 }
 
@@ -40,7 +40,7 @@ class Estudiante extends Persona {
     }
     
     calcularPromedio(){
-        if(this.#calificaciones.legth >= 2){
+        if(this.#calificaciones.length >= 2){
             let resultado = 0;
 
             this.#calificaciones.map(calificacion => {
@@ -53,3 +53,11 @@ class Estudiante extends Persona {
 
 const perso1 = new Persona("Ramon", 58);
 console.log(perso1.saludar());
+
+const estu1 = new Estudiante("Sebastian", 25);
+console.log( estu1.saludar() );
+estu1.agregarCalificaion(2.3);
+estu1.agregarCalificaion(1.5);
+estu1.agregarCalificaion(4.0);
+
+console.log( estu1.calcularPromedio() )
