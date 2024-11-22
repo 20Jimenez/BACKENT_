@@ -1,63 +1,60 @@
-class Persona{
-    constructor(nombre, edad){
+class Persona {
+    constructor(nombre, edad) {
         this.nombre = nombre;
         this.edad = edad;
     }
 
-    setNombre(valor){
-        this.nombre = valor;
-    }
-    getNombre(){
-        return this.nombre;
-    }
-
-    setEdad(valor){
-        this.edad = valor;
-    }
-    getEdad(){
-        return this.edad;
-    }
-
-    saludar(){
-        return `Hola, persona: ${this.nombre}, tu edad es: ${this.edad}`;
+    saludar() {
+        console.log(`Hola, mi nombre es ${this.nombre} y tengo ${this.edad} años.`);
     }
 }
 
 class Estudiante extends Persona {
-    #calificaciones;
-    constructor(nombre, edad){
+    constructor(nombre, edad) {
         super(nombre, edad);
-        this.#calificaciones = [];
+        this.calificaciones = [];
     }
 
-    agregarCalificacion(calificacion){ //Calificacion debe ser un valor numerico
-        if(calificacion){
-            this.#calificaciones.push( parseFloat(calificacion))
-        }
-        else{
-            return "Debes ingresar un valor valido";
-        }
+    agregarCalificacion(calificacion) {
+        this.calificaciones.push(calificacion);
+        console.log(`Calificación ${calificacion} agregada a ${this.nombre}.`);
     }
-    
-    calcularPromedio(){
-        if(this.#calificaciones.length >= 2){
-            let resultado = 0;
 
-            this.#calificaciones.map(calificacion => {
-                resultado += calificacion
-            })
-            return resultado / this.#calificaciones.length;
-        }
+    calcularPromedio() {
+        if (this.calificaciones.length === 0) return 0;
+        const suma = this.calificaciones.reduce((acc, curr) => acc + curr, 0);
+        return suma / this.calificaciones.length;
     }
 }
 
-const perso1 = new Persona("Ramon", 58);
-console.log(perso1.saludar());
+let estudiantes = [];
 
-const estu1 = new Estudiante("Sebastian", 25);
-console.log( estu1.saludar() );
-estu1.agregarCalificaion(2.3);
-estu1.agregarCalificaion(1.5);
-estu1.agregarCalificaion(4.0);
+document.querySelector("#agregarEstudiante").addEventListener("click", function () {
+    const nombreInput = document.querySelector("#nombre");
+    const edadInput = document.querySelector("#edad");
+    const calificacionInput = document.querySelector("#calificacion");
 
-console.log( estu1.calcularPromedio() )
+    const nombre = nombreInput.value;
+    const edad = parseInt(edadInput.value);
+    const calificacion = parseFloat(calificacionInput.value);
+
+    const estudiante = new Estudiante(nombre, edad);
+    estudiante.agregarCalificacion(calificacion);
+    estudiantes.push(estudiante);
+
+    nombreInput.value = "";
+    edadInput.value = "";
+    calificacionInput.value = "";
+});
+
+document.querySelector("#mostrarPromedios").addEventListener("click", function () {
+    const listaEstudiantes = document.querySelector("#lista-estudiantes");
+    listaEstudiantes.innerHTML = ""; // Limpiar la lista antes de mostrar
+
+    estudiantes.forEach(estudiante => {
+        const promedio = estudiante.calcularPromedio();
+        const listItem = document.createElement("li");
+        listItem.textContent = `${estudiante.nombre} - Promedio: ${promedio.toFixed(2)}`;
+        listaEstudiantes.appendChild(listItem);
+    });
+});
