@@ -1,24 +1,60 @@
-class Producto{
-    constructor(nombre, precio, cantidadEnStock){
+class Producto {
+    constructor(nombre, precio, cantidadEnStock) {
         this.nombre = nombre;
         this.precio = precio;
         this.cantidadEnStock = cantidadEnStock;
     }
 }
-class Electrodomestico extends Producto{
-    constructor(nombre, precio, cantidadEnStock, marca){
+
+class Electrodomestico extends Producto {
+    constructor(nombre, precio, cantidadEnStock, marca) {
         super(nombre, precio, cantidadEnStock);
         this.marca = marca;
     }
 }
-//Arreglo
-let laptop = new Electrodomestico("Laptop", 300, 2, "HP");
-let lavadora = new Electrodomestico("Lavadora", 500, 1, "SAMSUNG");
-let microondas = new Electrodomestico("Microondas", 800, 5, "IG");
-let productos = [laptop, lavadora, microondas];  // Es un arreglo de electrodomesticos llamado productos
 
-let listar = (productos) => {
-    let resultado = productos.filter(producto => producto.cantidadEnStock < 10);
-    return resultado;
+// Crear un arreglo de productos
+const productos = [];
+
+// Función para agregar un producto
+function agregarProducto(event) {
+    event.preventDefault(); // Evitar el envío del formulario
+
+    const nombre = document.querySelector('#nombre').value;
+    const precio = parseFloat(document.querySelector('#precio').value);
+    const cantidadEnStock = parseInt(document.querySelector('#cantidadEnStock').value);
+    const marca = document.querySelector('#marca').value;
+
+    let nuevoProducto;
+
+    if (marca) {
+        nuevoProducto = new Electrodomestico(nombre, precio, cantidadEnStock, marca);
+    } else {
+        nuevoProducto = new Producto(nombre, precio, cantidadEnStock);
+    }
+
+    productos.push(nuevoProducto);
+    document.querySelector('#productoForm').reset(); // Reiniciar el formulario
 }
-console.log(listar(productos));
+
+// Función para listar productos con bajo stock
+function listarBajoStock() {
+    const resultados = document.querySelector('#resultados');
+    resultados.innerHTML = ''; // Limpiar resultados anteriores
+
+    const productosBajoStock = productos.filter(producto => producto.cantidadEnStock < 10);
+
+    if (productosBajoStock.length > 0) {
+        productosBajoStock.forEach(producto => {
+            const item = document.createElement('p');
+            item.textContent = `${producto.nombre} - Precio: $${producto.precio} - Stock: ${producto.cantidadEnStock}` + (producto.marca ? ` - Marca: ${producto.marca}` : '');
+            resultados.appendChild(item);
+        });
+    } else {
+        resultados.textContent = 'No hay productos con bajo stock.';
+    }
+}
+
+// Eventos
+document.querySelector('#productoForm').addEventListener('submit', agregarProducto);
+document.querySelector('#listarBajoStock').addEventListener('click', listarBajoStock);
