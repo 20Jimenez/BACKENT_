@@ -47,4 +47,4 @@ miCalculadora.suma(10, 3);          // Suma
 miCalculadora.resta(10, 3);         // Resta
 miCalculadora.multiplicacion(10, 3); // Multiplicación
 miCalculadora.division(100, 5);      // División
-miCalculadora.division(10, 0);      // División por cero
+miCalculadora.division(10, 0);      // División por numero cero
