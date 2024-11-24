@@ -1,44 +1,67 @@
 class Empleado {
-    constructor(nombre, sueldo) {
+    constructor(nombre, sueldoPorHora) {
         this.nombre = nombre;
-        this.sueldo = sueldo;
+        this.sueldoPorHora = sueldoPorHora;
     }
 
-    calcularSueldoTotal() {
-        return this.sueldo;
+    calcularSueldo(horas) {
+        return this.sueldoPorHora * horas;
     }
 }
 
 class EmpleadoTiempoCompleto extends Empleado {
-    calcularSueldoTotal(horasTrabajadas) {
-        return this.sueldo * horasTrabajadas;
+    constructor(nombre, sueldoPorHora) {
+        super(nombre, sueldoPorHora);
+    }
+
+    calcularSueldo(horas) {
+        return super.calcularSueldo(horas) * 1.5; // Sueldo adicional para tiempo completo
     }
 }
 
 class EmpleadoMedioTiempo extends Empleado {
-    calcularSueldoTotal(horasTrabajadas) {
-        return (this.sueldo * horasTrabajadas) / 2;
+    constructor(nombre, sueldoPorHora) {
+        super(nombre, sueldoPorHora);
+    }
+
+    calcularSueldo(horas) {
+        return super.calcularSueldo(horas); // Sueldo normal
     }
 }
 
-const empleados = [
-    new EmpleadoTiempoCompleto("Juan", 20),
-    new EmpleadoMedioTiempo("Ana", 15),
-    new EmpleadoTiempoCompleto("Luis", 25),
-    new EmpleadoMedioTiempo("Maria", 18)
-];
+// Arreglo para almacenar empleados
+const empleados = [];
 
-const empleadosTable = document.getElementById('empleadosTable');
+// Evento para agregar empleado
+document.querySelector("#agregar").addEventListener("click", function () {
+    const nombre = document.querySelector("#nombre").value;
+    const sueldoPorHora = parseFloat(document.querySelector("#sueldo").value);
+    const horas = parseInt(document.querySelector("#horas").value);
+    const tipo = document.querySelector("#tipo").value;
 
-empleados.forEach(empleado => {
-    const sueldoTotal = empleado instanceof EmpleadoTiempoCompleto
-        ? empleado.calcularSueldoTotal(40)
-        : empleado.calcularSueldoTotal(20);
+    let nuevoEmpleado;
 
-    const row = empleadosTable.insertRow();
-    const cellNombre = row.insertCell(0);
-    const cellSueldo = row.insertCell(1);
+    if (tipo === "tiempoCompleto") {
+        nuevoEmpleado = new EmpleadoTiempoCompleto(nombre, sueldoPorHora);
+    } else {
+        nuevoEmpleado = new EmpleadoMedioTiempo(nombre, sueldoPorHora);
+    }
 
-    cellNombre.textContent = empleado.nombre;
-    cellSueldo.textContent = sueldoTotal;
+    empleados.push(nuevoEmpleado);
+    document.querySelector("#nombre").value = "";
+    document.querySelector("#sueldo").value = "";
+    document.querySelector("#horas").value = "";
+});
+
+// Evento para mostrar sueldos
+document.querySelector("#mostrar").addEventListener("click", function () {
+    const listaEmpleados = document.querySelector("#lista-empleados");
+    listaEmpleados.innerHTML = ''; // Limpiar lista anterior
+
+    empleados.forEach(empleado => {
+        const sueldo = empleado.calcularSueldo(40); // Calcular sueldo para 40 horas
+        const item = document.createElement("li");
+        item.textContent = `${empleado.nombre} - Sueldo: $${sueldo.toFixed(2)}`;
+        listaEmpleados.appendChild(item);
+    });
 });

@@ -4,34 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema Bancario</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
 </head>
 <body>
-    <h1>Sistema Bancario</h1>
-    <table id="cuentasTable">
-        <tr>
-            <th>Numero de Cuenta</th>
-            <th>Saldo</th>
-            <th>Tipo</th>
-        </tr>
-    </table>
-
+    <h1>SISTEMA BANCARIO</h1>
+    <div>
+        <label for="numeroCuenta">Número de Cuenta:</label>
+        <input id="numeroCuenta" type="text" required>
+        <br>
+        <label for="saldo">Saldo Inicial:</label>
+        <input id="saldo" type="number" required>
+        <br>
+        <label for="tipoCuenta">Tipo de Cuenta:</label>
+        <select id="tipoCuenta">
+            <option value="ahorros">Cuenta de Ahorros</option>
+            <option value="corriente">Cuenta Corriente</option>
+        </select>
+        <br>
+        <button id="agregar">Agregar Cuenta</button>
+    </div>
+    <div>
+        <h2>LISTADO DE CUENTAS</h2>
+        <ul id="lista-cuentas"></ul>
+        <button id="mostrar">Mostrar Cuentas</button>
+    </div>
     <script src="sistemaBancario.js"></script>
 </body>
 </html>

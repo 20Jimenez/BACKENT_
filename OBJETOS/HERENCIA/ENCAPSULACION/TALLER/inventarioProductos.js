@@ -19,6 +19,7 @@ const productos = [];
 // Función para agregar un producto
 function agregarProducto(event) {
     event.preventDefault(); // Evitar el envío del formulario
+    console.log('Formulario enviado'); // Agrega esta línea para depuración
 
     const nombre = document.querySelector('#nombre').value;
     const precio = parseFloat(document.querySelector('#precio').value);

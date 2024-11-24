@@ -1,10 +1,10 @@
-//Clase padre
-class Figura{
-    calcularArea(){
-
+// Clase padre
+class Figura {
+    calcularArea() {
+        throw new Error("Método 'calcularArea()' no implementado");
     }
-    calcularPerimetro(){
-
+    calcularPerimetro() {
+        throw new Error("Método 'calcularPerimetro()' no implementado");
     }
 }
 

@@ -4,32 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Empleados</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
 </head>
 <body>
-    <h1>Sistema de Empleados</h1>
-    <table id="empleadosTable">
-        <tr>
-            <th>Nombre</th>
-            <th>Sueldo Total</th>
-        </tr>
-    </table>
+    <h1>SISTEMA DE EMPLEADOS</h1>
+    <div>
+        <label for="nombre">Nombre:</label>
+        <input id="nombre" type="text" required>
+        <br>
+        <label for="sueldo">Sueldo por hora:</label>
+        <input id="sueldo" type="number" required>
+        <br>
+        <label for="horas">Horas trabajadas:</label>
+        <input id="horas" type="number" required>
+        <br>
+        <label for="tipo">Tipo de empleado:</label>
+        <select id="tipo">
+            <option value="tiempoCompleto">Tiempo Completo</option>
+            <option value="medioTiempo">Medio Tiempo</option>
+        </select>
+        <br>
+        <button id="agregar">Agregar Empleado</button>
+    </div>
+    
+    <div>
+        <h2>LISTADO DE EMPLEADOS</h2>
+        <ul id="lista-empleados"></ul>
+        <button id="mostrar">Mostrar Sueldos</button>
+    </div>
 
     <script src="sistemaEmpleados.js"></script>
 </body>

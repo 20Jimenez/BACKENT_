@@ -4,54 +4,62 @@ class CuentaBancaria {
         this.saldo = saldo;
     }
 
-    depositar(cantidad) {
-        this.saldo += cantidad;
-    }
-
-    retirar(cantidad) {
-        if (cantidad <= this.saldo) {
-            this.saldo -= cantidad;
-        } 
-        else {
-            console.log('Fondos insuficientes');
-        }
+    mostrarInformacion() {
+        console.log(`Cuenta: ${this.numeroCuenta}, Saldo: $${this.saldo}`);
     }
 }
 
-        class CuentaAhorros extends CuentaBancaria {
-            aplicarIntereses() {
-                this.saldo += this.saldo * 0.05; // 5% de interés
-            }
-        }
+class CuentaAhorros extends CuentaBancaria {
+    constructor(numeroCuenta, saldo) {
+        super(numeroCuenta, saldo);
+    }
 
-        class CuentaCorriente extends CuentaBancaria {
-            // Métodos específicos para CuentaCorriente si es necesario
-        }
+    aplicarIntereses(tasa) {
+        this.saldo += this.saldo * (tasa / 100);
+        console.log(`Intereses aplicados. Nuevo saldo: $${this.saldo}`);
+    }
+}
 
-        const cuentas = [
-            new CuentaAhorros('001', 1000),
-            new CuentaCorriente('002', 2000),
-            new CuentaAhorros('003', 1500),
-            new CuentaCorriente('004', 2500)
-        ];
+class CuentaCorriente extends CuentaBancaria {
+    constructor(numeroCuenta, saldo) {
+        super(numeroCuenta, saldo);
+    }
 
-        // Aplicar intereses a las cuentas de ahorro
-        cuentas.forEach(cuenta => {
-            if (cuenta instanceof CuentaAhorros) {
-                cuenta.aplicarIntereses();
-            }
-        });
+    cobrarComision(comision) {
+        this.saldo -= comision;
+        console.log(`Comisión cobrada. Nuevo saldo: $${this.saldo}`);
+    }
+}
 
-        // Mostrar cuentas en la tabla
-        const cuentasTable = document.getElementById('cuentasTable');
+// Arreglo para manejar múltiples cuentas
+const cuentas = [];
 
-        cuentas.forEach(cuenta => {
-            const row = cuentasTable.insertRow();
-            const cellNumeroCuenta = row.insertCell(0);
-            const cellSaldo = row.insertCell(1);
-            const cellTipo = row.insertCell(2);
+// Función para agregar una cuenta
+document.querySelector("#agregar").addEventListener("click", function () {
+    const numeroCuenta = document.querySelector("#numeroCuenta").value;
+    const saldo = parseFloat(document.querySelector("#saldo").value);
+    const tipoCuenta = document.querySelector("#tipoCuenta").value;
 
-            cellNumeroCuenta.textContent = cuenta.numeroCuenta;
-            cellSaldo.textContent = cuenta.saldo.toFixed(2);
-            cellTipo.textContent = cuenta instanceof CuentaAhorros ? 'Ahorros' : 'Corriente';
-        });
+    let nuevaCuenta;
+    if (tipoCuenta === "ahorros") {
+        nuevaCuenta = new CuentaAhorros(numeroCuenta, saldo);
+    } else {
+        nuevaCuenta = new CuentaCorriente(numeroCuenta, saldo);
+    }
+
+    cuentas.push(nuevaCuenta);
+    document.querySelector("#numeroCuenta").value = "";
+    document.querySelector("#saldo").value = "";
+});
+
+// Función para mostrar cuentas
+document.querySelector("#mostrar").addEventListener("click", function () {
+    const listaCuentas = document.querySelector("#lista-cuentas");
+    listaCuentas.innerHTML = ''; // Limpiar la lista antes de mostrar
+
+    cuentas.forEach(cuenta => {
+        const item = document.createElement("li");
+        item.textContent = `Cuenta: ${cuenta.numeroCuenta}, Saldo: $${cuenta.saldo}`;
+        listaCuentas.appendChild(item);
+    });
+});
